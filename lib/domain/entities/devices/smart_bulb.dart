@@ -13,13 +13,6 @@ class SmartBulbValues extends Equatable{
   
   @override
   List<Object?> get props => [color, hue];
-
-  factory SmartBulbValues.fromJson(Map<String, dynamic> json) {
-    return SmartBulbValues(
-      color: json['color'],
-      hue: json['hue'],
-    );
-  }
 }
 
 class SmartBulb extends SmartDevice<SmartBulbValues> {
@@ -28,12 +21,4 @@ class SmartBulb extends SmartDevice<SmartBulbValues> {
     required bool status,
     required SmartBulbValues values,
   }) : super(name: name, type: SmartDeviceType.smartBulb, status: status, values: values);
-  
-  factory SmartBulb.fromJson(Map<String, dynamic> json) {
-    return SmartBulb(
-      name: json['name'],
-      status: json['status'],
-      values: SmartBulbValues.fromJson(json['values'])
-    );
-  }
 }

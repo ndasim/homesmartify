@@ -1,39 +1,31 @@
-import 'package:equatable/equatable.dart';
-import 'package:homesmartify/domain/entities/enums/smart_device_types.dart';
-import 'package:homesmartify/domain/entities/smart_device.dart';
+import '../../../domain/entities/devices/smart_tv.dart';
 
-class SmartTvValues extends Equatable{
-  final int channel;
-  final int volume;
+class SmartTvValuesModel extends SmartTvValues{
+  const SmartTvValuesModel({
+    required int channel,
+    required int volume,
+  }) : super(channel: channel, volume: volume);
 
-  const SmartTvValues({
-    required this.channel,
-    required this.volume,
-  });
-
-  @override
-  List<Object?> get props => [channel, volume];
-
-  factory SmartTvValues.fromJson(Map<String, dynamic> json) {
-    return SmartTvValues(
+  factory SmartTvValuesModel.fromJson(Map<String, dynamic> json) {
+    return SmartTvValuesModel(
       channel: json['channel'],
       volume: json['volume'],
     );
   }
 }
 
-class SmartTv extends SmartDevice<SmartTvValues>{
-  const SmartTv({
+class SmartTvModel extends SmartTv{
+  const SmartTvModel({
     required String name,
     required bool status,
     required SmartTvValues values,
-  }) : super(name: name, type: SmartDeviceType.smartTv, status: status, values: values);
+  }) : super(name: name, status: status, values: values);
 
-  factory SmartTv.fromJson(Map<String, dynamic> json) {
-    return SmartTv(
+  factory SmartTvModel.fromJson(Map<String, dynamic> json) {
+    return SmartTvModel(
       name: json['name'],
       status: json['status'],
-      values: SmartTvValues.fromJson(json['values'])
+      values: SmartTvValuesModel.fromJson(json['values'])
     );
   }
 }

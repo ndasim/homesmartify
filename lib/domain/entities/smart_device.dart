@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:homesmartify/domain/entities/enums/smart_device_types.dart';
 
-class SmartDevice<T> extends Equatable {
+abstract class SmartDevice<T> extends Equatable {
   final String name;
   final SmartDeviceType type;
   final bool status;

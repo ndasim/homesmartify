@@ -19,16 +19,6 @@ class SmartAirConditionerValues extends Equatable{
 
   @override
   List<Object?> get props => [name, status, temperature, fanSpeed, swing];
-
-  factory SmartAirConditionerValues.fromJson(Map<String, dynamic> json) {
-    return SmartAirConditionerValues(
-      name: json['name'],
-      status: json['status'],
-      temperature: json['temperature'],
-      fanSpeed: json['fanSpeed'],
-      swing: json['swing'],
-    );
-  }
 }
 
 class SmartAirConditioner extends SmartDevice<SmartAirConditionerValues>{
@@ -37,12 +27,4 @@ class SmartAirConditioner extends SmartDevice<SmartAirConditionerValues>{
     required bool status,
     required SmartAirConditionerValues values,
   }) : super(name: name, type: SmartDeviceType.smartAirConditioner, status: status, values: values);
-
-  factory SmartAirConditioner.fromJson(Map<String, dynamic> json) {
-    return SmartAirConditioner(
-      name: json['name'],
-      status: json['status'],
-      values: SmartAirConditionerValues.fromJson(json['values'])
-    );
-  }
 }
