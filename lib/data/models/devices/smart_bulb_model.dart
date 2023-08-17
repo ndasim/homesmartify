@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
 import 'package:homesmartify/domain/entities/devices/smart_bulb.dart';
-import 'package:homesmartify/domain/entities/enums/smart_device_types.dart';
-import 'package:homesmartify/domain/entities/smart_device.dart';
 
 class SmartBulbValuesModel extends SmartBulbValues{
   const SmartBulbValuesModel({

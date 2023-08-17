@@ -28,6 +28,7 @@ void main() {
       color: 0xffffff, hue: 100,
     ),
   );
+
   final tSmartDevices = [tSmartDevice];
 
   test(
@@ -36,8 +37,10 @@ void main() {
       // arrange
       when(mockSmartDeviceRepository.getSmartDevice(any))
           .thenAnswer((_) async => const Right(tSmartDevice));
+
       // act
       final result = await usecase.getSmartDevice(tId);
+
       // assert
       expect(result, const Right(tSmartDevice));
       verify(mockSmartDeviceRepository.getSmartDevice(tId));
@@ -51,8 +54,10 @@ void main() {
       // arrange
       when(mockSmartDeviceRepository.getSmartDevices())
           .thenAnswer((_) async => Right(tSmartDevices));
+
       // act
       final result = await usecase.getSmartDevices();
+
       // assert
       expect(result, Right(tSmartDevices));
       verify(mockSmartDeviceRepository.getSmartDevices());
@@ -66,8 +71,10 @@ void main() {
       // arrange
       when(mockSmartDeviceRepository.addSmartDevice(any))
           .thenAnswer((_) async => const Right(tSmartDevice));
+
       // act
       final result = await usecase.addSmartDevice(tSmartDevice);
+
       // assert
       expect(result, const Right(tSmartDevice));
       verify(mockSmartDeviceRepository.addSmartDevice(tSmartDevice));
