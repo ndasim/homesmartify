@@ -17,8 +17,9 @@ class SmartTvValues extends Equatable{
 
 class SmartTv extends SmartDevice<SmartTvValues>{
   const SmartTv({
+    required String id,
     required String name,
     required bool status,
     required SmartTvValues values,
-  }) : super(name: name, type: SmartDeviceType.smartTv, status: status, values: values);
+  }) : super(id: id, name: name, type: SmartDeviceType.smartTv, status: status, values: values);
 }

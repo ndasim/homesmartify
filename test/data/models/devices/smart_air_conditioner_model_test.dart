@@ -27,8 +27,6 @@ void main() {
       expect(result, isA<SmartAirConditioner>());
       expect(result.name, equals('Samsung'));
       expect(result.status, equals(true));
-      expect(result.values.name, equals('Samsung'));
-      expect(result.values.status, equals(true));
       expect(result.values.temperature, equals(24));
       expect(result.values.fanSpeed, equals(3));
       expect(result.values.swing, equals(1));
@@ -51,8 +49,6 @@ void main() {
 
       // assert
       expect(result, isA<SmartAirConditionerValues>());
-      expect(result.name, equals('Samsung'));
-      expect(result.status, equals(true));
       expect(result.temperature, equals(24));
       expect(result.fanSpeed, equals(3));
       expect(result.swing, equals(1));

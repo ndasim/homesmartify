@@ -34,6 +34,7 @@ void main() {
       // arrange
       const SmartBulbValuesModel tSmartBulbValuesModel = SmartBulbValuesModel(color: 0, hue: 0);
       const SmartBulbModel tSmartBulbModel = SmartBulbModel(
+        id: '1',
         name: 'Test',
         status: true,
         values: tSmartBulbValuesModel,

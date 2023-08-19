@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:homesmartify/core/error/failure.dart' as _i5;
-import 'package:homesmartify/data/repositories/smart_device_repository.dart'
+import 'package:homesmartify/domain/repositories/smart_device_repository.dart'
     as _i3;
 import 'package:homesmartify/domain/entities/smart_device.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;

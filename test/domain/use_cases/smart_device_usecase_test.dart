@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homesmartify/core/error/failure.dart';
-import 'package:homesmartify/data/repositories/smart_device_repository.dart';
+import 'package:homesmartify/domain/repositories/smart_device_repository.dart';
 import 'package:homesmartify/domain/entities/devices/smart_bulb.dart';
 import 'package:homesmartify/domain/entities/smart_device.dart';
 import 'package:homesmartify/domain/usecases/smart_device_usecase.dart';
@@ -22,6 +22,7 @@ void main() {
 
   const String tId = '1';
   const SmartBulb tSmartDevice = SmartBulb(
+    id: tId,
     name: 'Smart Bulb',
     status: true,
     values: SmartBulbValues(

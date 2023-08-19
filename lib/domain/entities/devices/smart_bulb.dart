@@ -17,8 +17,9 @@ class SmartBulbValues extends Equatable{
 
 class SmartBulb extends SmartDevice<SmartBulbValues> {
   const SmartBulb({
+    required String id,
     required String name,
     required bool status,
     required SmartBulbValues values,
-  }) : super(name: name, type: SmartDeviceType.smartBulb, status: status, values: values);
+  }) : super(id: id, name: name, type: SmartDeviceType.smartBulb, status: status, values: values);
 }

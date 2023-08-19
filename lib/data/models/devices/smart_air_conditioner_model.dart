@@ -10,7 +10,7 @@ class SmartAirConditionerValuesModel extends SmartAirConditionerValues {
     required int temperature,
     required int fanSpeed,
     required int swing,
-  }) : super(name: name, status: status, temperature: temperature, fanSpeed: fanSpeed, swing: swing);
+  }) : super(temperature: temperature, fanSpeed: fanSpeed, swing: swing);
 
   factory SmartAirConditionerValuesModel.fromJson(Map<String, dynamic> json) {
     return SmartAirConditionerValuesModel(
@@ -25,10 +25,12 @@ class SmartAirConditionerValuesModel extends SmartAirConditionerValues {
 
 class SmartAirConditionerModel extends SmartAirConditioner {
   const SmartAirConditionerModel({
+    required String id,
     required String name,
     required bool status,
     required SmartAirConditionerValues values,
   }) : super(
+          id: id,
           name: name,
           status: status,
           values: values,
@@ -36,6 +38,7 @@ class SmartAirConditionerModel extends SmartAirConditioner {
 
   factory SmartAirConditionerModel.fromJson(Map<String, dynamic> json) {
     return SmartAirConditionerModel(
+      id: json['id'],
       name: json['name'],
       status: json['status'],
       values: SmartAirConditionerValuesModel.fromJson(json['values']),

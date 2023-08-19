@@ -16,13 +16,15 @@ class SmartTvValuesModel extends SmartTvValues{
 
 class SmartTvModel extends SmartTv{
   const SmartTvModel({
+    required String id,
     required String name,
     required bool status,
     required SmartTvValues values,
-  }) : super(name: name, status: status, values: values);
+  }) : super(id: id, name: name, status: status, values: values);
 
   factory SmartTvModel.fromJson(Map<String, dynamic> json) {
     return SmartTvModel(
+      id: json['id'],
       name: json['name'],
       status: json['status'],
       values: SmartTvValuesModel.fromJson(json['values'])

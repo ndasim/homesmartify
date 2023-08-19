@@ -19,13 +19,15 @@ class SmartBulbValuesModel extends SmartBulbValues{
 
 class SmartBulbModel extends SmartBulb {
   const SmartBulbModel({
+    required String id,
     required String name,
     required bool status,
     required SmartBulbValues values,
-  }) : super(name: name, status: status, values: values);
+  }) : super(id: id, name: name, status: status, values: values);
   
   factory SmartBulbModel.fromJson(Map<String, dynamic> json) {
     return SmartBulbModel(
+      id: json['id'],
       name: json['name'],
       status: json['status'],
       values: SmartBulbValuesModel.fromJson(json['values'])
