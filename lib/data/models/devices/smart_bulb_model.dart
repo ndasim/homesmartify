@@ -9,6 +9,13 @@ class SmartBulbValuesModel extends SmartBulbValues{
   @override
   List<Object?> get props => [color, hue];
 
+  Map<String, dynamic> toJson() {
+    return {
+      'color': color,
+      'hue': hue,
+    };
+  }
+
   factory SmartBulbValuesModel.fromJson(Map<String, dynamic> json) {
     return SmartBulbValuesModel(
       color: json['color'],
@@ -24,7 +31,16 @@ class SmartBulbModel extends SmartBulb {
     required bool status,
     required SmartBulbValues values,
   }) : super(id: id, name: name, status: status, values: values);
-  
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'values': (values as SmartBulbValuesModel).toJson(),
+    };
+  }
+
   factory SmartBulbModel.fromJson(Map<String, dynamic> json) {
     return SmartBulbModel(
       id: json['id'],

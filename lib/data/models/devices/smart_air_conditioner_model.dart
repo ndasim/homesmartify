@@ -5,17 +5,21 @@ import 'package:homesmartify/domain/entities/smart_device.dart';
 
 class SmartAirConditionerValuesModel extends SmartAirConditionerValues {
   const SmartAirConditionerValuesModel({
-    required String name,
-    required bool status,
     required int temperature,
     required int fanSpeed,
     required int swing,
   }) : super(temperature: temperature, fanSpeed: fanSpeed, swing: swing);
 
+  Map<String, dynamic> toJson() {
+    return {
+      'temperature': temperature,
+      'fanSpeed': fanSpeed,
+      'swing': swing,
+    };
+  }
+
   factory SmartAirConditionerValuesModel.fromJson(Map<String, dynamic> json) {
     return SmartAirConditionerValuesModel(
-      name: json['name'],
-      status: json['status'],
       temperature: json['temperature'],
       fanSpeed: json['fanSpeed'],
       swing: json['swing'],
@@ -28,13 +32,22 @@ class SmartAirConditionerModel extends SmartAirConditioner {
     required String id,
     required String name,
     required bool status,
-    required SmartAirConditionerValues values,
+    required SmartAirConditionerValuesModel values,
   }) : super(
           id: id,
           name: name,
           status: status,
           values: values,
         );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'values': (values as SmartAirConditionerValuesModel).toJson(),
+    };
+  }
 
   factory SmartAirConditionerModel.fromJson(Map<String, dynamic> json) {
     return SmartAirConditionerModel(

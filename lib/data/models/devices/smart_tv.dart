@@ -6,6 +6,12 @@ class SmartTvValuesModel extends SmartTvValues{
     required int volume,
   }) : super(channel: channel, volume: volume);
 
+  Map<String, dynamic> toJson() {
+    return {
+      'channel': channel,
+      'volume': volume,
+    };
+  }
   factory SmartTvValuesModel.fromJson(Map<String, dynamic> json) {
     return SmartTvValuesModel(
       channel: json['channel'],
@@ -21,6 +27,15 @@ class SmartTvModel extends SmartTv{
     required bool status,
     required SmartTvValues values,
   }) : super(id: id, name: name, status: status, values: values);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'values': (values as SmartTvValuesModel).toJson(),
+    };
+  }
 
   factory SmartTvModel.fromJson(Map<String, dynamic> json) {
     return SmartTvModel(
