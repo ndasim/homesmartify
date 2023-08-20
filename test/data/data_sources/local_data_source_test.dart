@@ -12,6 +12,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
 import 'package:collection/collection.dart';
+import '../../core/test_extensions.dart';
 
 import 'local_data_source_test.mocks.dart';
 
@@ -24,6 +25,7 @@ void main() {
 
   // Define some test data and variables
   late String tData;
+  late String tDataRemoved;
   late SmartDevice tSmartDevice;
   late List<SmartDevice> tSmartDevices;
 
@@ -46,6 +48,23 @@ void main() {
                 "hue": 100
             }
         },
+        {
+            "id": "2",
+            "name": "Smart AC",
+            "type": "smartAirConditioner",
+            "status": false,
+            "values":
+            {
+                "temperature": 25,
+                "fanSpeed": 3,
+                "swing": 1
+            }
+        }
+    ]
+    ''';
+
+    tDataRemoved = '''
+    [
         {
             "id": "2",
             "name": "Smart AC",
@@ -256,6 +275,238 @@ void main() {
 
         // Expect that the result is a Left containing an InternalException with the error message
         expect(result, equals(const Left(InternalException('Some error'))));
+      },
+    );
+  });
+
+  group('deleteSmartDevice', () {
+    test(
+      'should delete the given smart device from the list and return it when there are no failures',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to return the data when getting the smart devices key
+        when(mockSecureSharedPref.getString(any)).thenReturnOneByOne([Future.value(tData), Future.value(tDataRemoved)]);
+
+        // Act
+        // Call the deleteSmartDevice function with the smart bulb as the argument
+        final result = await localDataSource.deleteSmartDevice(tSmartDevice);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+
+        // Expect that the result is a right value containing the smart bulb
+        expect(result, Right(tSmartDevice));
+
+        // Get the list of smart devices from the local data source
+        List<SmartDevice> smartDevices = (await localDataSource.getSmartDevices()).getOrElse((l) => []);
+
+        // Expect that the list of smart devices does not contain the smart bulb anymore
+        expect(smartDevices.contains(tSmartDevice), false);
+      },
+    );
+
+    test(
+      'should return a failure when getting the list of smart devices fails',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to throw an exception when getting the smart devices key
+        when(mockSecureSharedPref.getString(any))
+            .thenThrow(Exception());
+
+        // Act
+        // Call the deleteSmartDevice function with any smart device as the argument
+        final result = await localDataSource.deleteSmartDevice(tSmartDevice);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a left value containing a failure object
+        expect(result, equals(const Left<Failure, List<SmartDevice>>(InternalException("Some error"))));
+      },
+    );
+
+    test(
+      'should return an internal exception when saving the list of smart devices fails',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to return the data when getting the smart devices key
+        when(mockSecureSharedPref.getString(any))
+            .thenAnswer((_) async => tData);
+
+        // Stub the secure shared preference to throw an exception when putting the smart devices key
+        when(mockSecureSharedPref.putString(any, any))
+            .thenThrow(Exception());
+
+        // Act
+        // Call the deleteSmartDevice function with any smart device as the argument
+        final result = await localDataSource.deleteSmartDevice(tSmartDevice);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key twice (once for getting and once for putting)
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.putString(LocalDataSource.smartDevicesKey, any));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a left value containing an internal exception object
+        expect(result, equals(const Left<Failure, List<SmartDevice>>(InternalException("Some error"))));
+      },
+    );
+  });
+
+  group('getSmartDevice', () {
+    test(
+      'should return the smart device with the given id when there are no failures',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to return the data when getting the smart devices key
+        when(mockSecureSharedPref.getString(any))
+            .thenAnswer((_) async => tData);
+
+        // Act
+        // Call the getSmartDevice function with the smart bulb id as the argument
+        final result = await localDataSource.getSmartDevice(tSmartDevice.id);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a right value containing the smart bulb
+        expect(result, Right(tSmartDevice));
+      },
+    );
+
+    test(
+      'should return a failure when getting the list of smart devices fails',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to throw an exception when getting the smart devices key
+        when(mockSecureSharedPref.getString(any))
+            .thenThrow(Exception());
+
+        // Act
+        // Call the getSmartDevice function with any id as the argument
+        final result = await localDataSource.getSmartDevice(tSmartDevice.id);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a left value containing a failure object
+        expect(result, equals(const Left<Failure, SmartDevice>(InternalException("Some error"))));
+      },
+    );
+
+    test(
+      'should return an internal exception when there is no device with the given id',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to return the data when getting the smart devices key
+        when(mockSecureSharedPref.getString(any)).thenAnswer((_) async => tData);
+
+        // Act
+        // Call the getSmartDevice function with an invalid id as the argument
+        final result = await localDataSource.getSmartDevice("4");
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a left value containing an internal exception object
+        expect(result, equals(const Left<Failure, SmartDevice>(InternalException("Some error"))));
+      },
+    );
+  });
+
+  group('updateSmartDevice', () {
+    test(
+      'should update the given smart device in the list and return it when there are no failures',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to return the data when getting the smart devices key
+        when(mockSecureSharedPref.getString(any))
+            .thenAnswer((_) async => tData);
+
+        // Act
+        // Call the updateSmartDevice function with the smart bulb as the argument and change its brightness to 100
+        final result = await localDataSource.updateSmartDevice((tSmartDevice as SmartBulbModel).copyWith(name: "Testo"));
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key twice (once for getting and once for putting)
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.putString(LocalDataSource.smartDevicesKey, any));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a right value containing the updated smart bulb
+        expect((result as Right<Failure, SmartDevice>).value.name, "Testo");
+      },
+    );
+
+    test(
+      'should return a failure when getting the list of smart devices fails',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to throw an exception when getting the smart devices key
+        when(mockSecureSharedPref.getString(any))
+            .thenThrow(Exception());
+
+        // Act
+        // Call the updateSmartDevice function with any smart device as the argument
+        final result = await localDataSource.updateSmartDevice(tSmartDevice);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a left value containing a failure object
+        expect(result, equals(const Left<Failure, SmartDevice>(InternalException("Some error"))));
+      },
+    );
+
+    test(
+      'should return an internal exception when saving the list of smart devices fails',
+          () async {
+        // Arrange
+        // Stub the secure shared preference to return the data when getting the smart devices key
+        when(mockSecureSharedPref.getString(any)).thenAnswer((_) async => tData);
+
+        // Stub the secure shared preference to throw an exception when putting the smart devices key
+        when(mockSecureSharedPref.putString(any, any)).thenThrow(Exception());
+
+        // Act
+        // Call the updateSmartDevice function with any smart device as the argument
+        final result = await localDataSource.updateSmartDevice(tSmartDevice);
+
+        // Assert
+        // Verify that the secure shared preference was called with the correct key twice (once for getting and once for putting)
+        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.putString(LocalDataSource.smartDevicesKey, any));
+
+        // Verify that no more interactions happened with the secure shared preference
+        verifyNoMoreInteractions(mockSecureSharedPref);
+
+        // Expect that the result is a left value containing an internal exception object
+        expect(result, equals(const Left<Failure, SmartDevice>(InternalException("Some error"))));
       },
     );
   });

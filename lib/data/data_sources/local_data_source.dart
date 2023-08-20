@@ -126,7 +126,6 @@ class LocalDataSource {
         return Left((result as Left).value);
       }
     }catch(e, s){
-      logger.error(e, s);
       return Left(InternalException(e, s));
     }
   }
@@ -148,7 +147,6 @@ class LocalDataSource {
         return Left((result as Left).value);
       }
     }catch(e, s){
-      logger.error(e, s);
       return Left(InternalException(e, s));
     }
   }
@@ -176,7 +174,6 @@ class LocalDataSource {
         return Left((result as Left).value);
       }
     }catch(e, s){
-      logger.error(e, s);
       return Left(InternalException(e, s));
     }
   }

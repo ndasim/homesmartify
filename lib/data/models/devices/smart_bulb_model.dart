@@ -32,6 +32,20 @@ class SmartBulbModel extends SmartBulb {
     required SmartBulbValues values,
   }) : super(id: id, name: name, status: status, values: values);
 
+  SmartBulbModel copyWith({
+    String? id,
+    String? name,
+    bool? status,
+    SmartBulbValues? values,
+  }) {
+    return SmartBulbModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      status: status ?? this.status,
+      values: values ?? this.values,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
