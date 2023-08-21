@@ -57,7 +57,7 @@ class SmartTvModel extends SmartTv{
     return {
       'id': id,
       'name': name,
-      'type': type,
+      'type': type.name,
       'status': status,
       'values': (values as SmartTvValuesModel).toJson(),
     };

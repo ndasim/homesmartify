@@ -8,6 +8,7 @@ void main() {
     test('fromJson creates a valid SmartAirConditionerModel object', () async {
       // arrange
       final Map<String, dynamic> json = {
+        'id': '1',
         'name': 'Samsung',
         'status': true,
         'values': {

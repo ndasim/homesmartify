@@ -70,7 +70,7 @@ class SmartAirConditionerModel extends SmartAirConditioner {
     return {
       'id': id,
       'name': name,
-      'type': type,
+      'type': type.name,
       'status': status,
       'values': (values as SmartAirConditionerValuesModel).toJson(),
     };

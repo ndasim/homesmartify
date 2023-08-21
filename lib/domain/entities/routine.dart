@@ -4,6 +4,7 @@ import 'package:homesmartify/domain/entities/routine_action.dart';
 import 'smart_device.dart';
 
 abstract class Routine extends Equatable{
+  final String id; // name of the routine
   final String name; // name of the routine
   final SmartDevice device; // device to be controlled by the routine
   final int startTimeInMinutes; // 0 - 1440 (24 hours) defines the start time of the routine in day
@@ -12,6 +13,7 @@ abstract class Routine extends Equatable{
   final List<RoutineAction> actions; // defines the actions to be performed by the routine
 
   const Routine({
+    required this.id,
     required this.name,
     required this.device,
     required this.startTimeInMinutes,
@@ -21,5 +23,5 @@ abstract class Routine extends Equatable{
   });
 
   @override
-  List<Object?> get props => [name, device, startTimeInMinutes, durationInMinutes, frequency, actions];
+  List<Object?> get props => [id, name, device, startTimeInMinutes, durationInMinutes, frequency, actions];
 }

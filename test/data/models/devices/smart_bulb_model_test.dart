@@ -49,6 +49,7 @@ void main() {
     test('fromJson should return a valid model', () async {
       // arrange
       final Map<String, dynamic> jsonMap = {
+        'id': '1',
         'name': 'Test',
         'status': true,
         'values': {'color': 0, 'hue': 0}

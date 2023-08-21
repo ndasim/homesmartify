@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:fpdart/fpdart.dart';
 import 'package:homesmartify/data/serializers/routine_model_serializer.dart';
-import '../../domain/entities/routine.dart';
-import '../models/routine_model.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
+
+import '../../domain/entities/routine.dart';
 
 import '../../core/error/failure.dart';
 import '../../core/error/internal_exception.dart';
 import '../../core/error/no_data_failure.dart';
+
+import 'package:collection/collection.dart';
 
 class RoutineLocalDataSource {
   static const String routinesKey = "routines";
@@ -42,17 +44,17 @@ class RoutineLocalDataSource {
   }
 
   Future<Either<Failure, Routine>> getRoutine(String id) async {
-    try{
+    try {
       // Get routine list
       Either<Failure, List<Routine>> result = await getRoutines();
 
       // If there are no failures, return the routine with the given id
-      if(result.isRight()){
+      if (result.isRight()) {
         // Get the routine with the given id
-        Routine? routine = (result as Right).value.firstWhere((element) => element.name == id, orElse: () => null);
+        Routine? routine = ((result as Right).value as List).firstWhereOrNull((element) => element.id == id);
 
         // If the routine is null, return a NoDataFailure
-        if(routine == null) return const Left(NoDataFailure());
+        if (routine == null) return const Left(NoDataFailure());
 
         // Return the routine
         return Future.value(Right(routine));
@@ -61,11 +63,11 @@ class RoutineLocalDataSource {
       // Return the failure
       return Left((result as Left).value);
     }
-    catch(e, s){
+    catch (e, s) {
       return Future.value(Left(InternalException(e, s)));
     }
   }
-  
+
   Future<Either<Failure, Routine>> addRoutine(Routine routine) async {
     try{
       // Get routine list

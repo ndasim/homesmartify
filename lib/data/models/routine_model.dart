@@ -8,6 +8,7 @@ import '../serializers/smart_device_serializer.dart';
 
 class RoutineModel extends Routine {
   const RoutineModel({
+    required String id,
     required String name,
     required SmartDevice device,
     required int startTimeInMinutes,
@@ -15,6 +16,7 @@ class RoutineModel extends Routine {
     required RoutineFrequencyType frequency,
     required List<RoutineAction> actions,
   }) : super(
+          id: id,
           name: name,
           device: device,
           startTimeInMinutes: startTimeInMinutes,
@@ -24,6 +26,7 @@ class RoutineModel extends Routine {
         );
 
   RoutineModel copyWith({
+    String? id,
     String? name,
     SmartDevice? device,
     int? startTimeInMinutes,
@@ -32,6 +35,7 @@ class RoutineModel extends Routine {
     List<RoutineAction>? actions,
   }) {
     return RoutineModel(
+      id: id ?? this.id,
       name: name ?? this.name,
       device: device ?? this.device,
       startTimeInMinutes: startTimeInMinutes ?? this.startTimeInMinutes,
@@ -43,22 +47,24 @@ class RoutineModel extends Routine {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
-      'device': device,
+      'device': SmartDeviceSerializer.toJson(device),
       'startTimeInMinutes': startTimeInMinutes,
       'durationInMinutes': durationInMinutes,
-      'frequency': frequency.toString(),
-      'actions': actions,
+      'frequency': frequency.name,
+      'actions': actions.map((e) => RoutineActionSerializer.toJson(e)).toList()
     };
   }
 
   factory RoutineModel.fromJson(Map<String, dynamic> json) {
     return RoutineModel(
+      id: json['id'],
       name: json['name'],
       device: SmartDeviceSerializer.fromJson(json['device']),
       startTimeInMinutes: json['startTimeInMinutes'],
       durationInMinutes: json['durationInMinutes'],
-      frequency: RoutineFrequencyType.values.firstWhere((element) => element.toString() == json['frequency']),
+      frequency: RoutineFrequencyType.values.asNameMap()[json["frequency"]] ?? RoutineFrequencyType.never,
       actions: (json['actions'] as List).map((e) => RoutineActionSerializer.fromJson(e)).toList(),
     );
   }

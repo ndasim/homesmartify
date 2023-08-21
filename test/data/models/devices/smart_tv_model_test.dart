@@ -7,6 +7,7 @@ void main() {
     test('fromJson creates a valid SmartTvModel object', () async {
       // arrange
       final Map<String, dynamic> json = {
+        'id': '1',
         'name': 'Samsung',
         'status': true,
         'values': {'channel': 1, 'volume': 10},

@@ -1,15 +1,39 @@
 import 'package:homesmartify/domain/entities/actions/turn_on_action.dart';
 
+class TurnOnActionValuesModel extends TurnOnActionValues {
+  TurnOnActionValuesModel({required bool turnOn}) : super(turnOn: turnOn);
+
+  TurnOnActionValuesModel copyWith({
+    bool? turnOn,
+  }) {
+    return TurnOnActionValuesModel(
+      turnOn: turnOn ?? this.turnOn,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'turnOn': turnOn,
+    };
+  }
+
+  factory TurnOnActionValuesModel.fromJson(Map<String, dynamic> json) {
+    return TurnOnActionValuesModel(
+      turnOn: json['turnOn'],
+    );
+  }
+}
+
 class TurnOnActionModel extends TurnOnAction{
   const TurnOnActionModel({
     required String name,
-    required Map<String, dynamic> values,
+    required TurnOnActionValues values,
   }) : super(name: name, values: values);
 
   TurnOnActionModel copyWith({
     String? name,
     String? type,
-    Map<String, dynamic>? values,
+    TurnOnActionValues? values,
   }) {
     return TurnOnActionModel(
       name: name ?? this.name,
@@ -20,7 +44,7 @@ class TurnOnActionModel extends TurnOnAction{
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'type': type,
+      'type': type.name,
       'values': values,
     };
   }
@@ -28,7 +52,7 @@ class TurnOnActionModel extends TurnOnAction{
   factory TurnOnActionModel.fromJson(Map<String, dynamic> json) {
     return TurnOnActionModel(
       name: json['name'],
-      values: json['values'],
+      values: TurnOnActionValuesModel.fromJson(json['values']),
     );
   }
 }
