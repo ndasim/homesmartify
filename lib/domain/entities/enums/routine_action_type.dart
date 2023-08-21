@@ -1,0 +1,4 @@
+enum RoutineActionType {
+  turnOn,
+  setValue
+}

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:homesmartify/domain/entities/devices/smart_air_conditioner.dart';
-import 'package:homesmartify/domain/entities/enums/smart_device_types.dart';
+import 'package:homesmartify/domain/entities/enums/smart_device_type.dart';
 import 'package:homesmartify/domain/entities/smart_device.dart';
 
 class SmartAirConditionerValuesModel extends SmartAirConditionerValues {
@@ -9,6 +9,18 @@ class SmartAirConditionerValuesModel extends SmartAirConditionerValues {
     required int fanSpeed,
     required int swing,
   }) : super(temperature: temperature, fanSpeed: fanSpeed, swing: swing);
+
+  SmartAirConditionerValuesModel copyWith({
+    int? temperature,
+    int? fanSpeed,
+    int? swing,
+  }) {
+    return SmartAirConditionerValuesModel(
+      temperature: temperature ?? this.temperature,
+      fanSpeed: fanSpeed ?? this.fanSpeed,
+      swing: swing ?? this.swing,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -32,7 +44,7 @@ class SmartAirConditionerModel extends SmartAirConditioner {
     required String id,
     required String name,
     required bool status,
-    required SmartAirConditionerValuesModel values,
+    required SmartAirConditionerValues values,
   }) : super(
           id: id,
           name: name,
@@ -40,10 +52,25 @@ class SmartAirConditionerModel extends SmartAirConditioner {
           values: values,
         );
 
+  SmartAirConditionerModel copyWith({
+    String? id,
+    String? name,
+    bool? status,
+    SmartAirConditionerValuesModel? values,
+  }) {
+    return SmartAirConditionerModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      status: status ?? this.status,
+      values: values ?? this.values,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
+      'type': type,
       'status': status,
       'values': (values as SmartAirConditionerValuesModel).toJson(),
     };

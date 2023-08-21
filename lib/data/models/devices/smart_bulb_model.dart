@@ -5,9 +5,16 @@ class SmartBulbValuesModel extends SmartBulbValues{
     required int color,
     required int hue,
   }) : super(color: color, hue: hue);
-  
-  @override
-  List<Object?> get props => [color, hue];
+
+  SmartBulbValuesModel copyWith({
+    int? color,
+    int? hue,
+  }) {
+    return SmartBulbValuesModel(
+      color: color ?? this.color,
+      hue: hue ?? this.hue,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -50,6 +57,7 @@ class SmartBulbModel extends SmartBulb {
     return {
       'id': id,
       'name': name,
+      'type': type,
       'status': status,
       'values': (values as SmartBulbValuesModel).toJson(),
     };

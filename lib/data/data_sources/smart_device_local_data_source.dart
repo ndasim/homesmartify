@@ -5,52 +5,21 @@ import 'package:homesmartify/core/core.dart';
 import 'package:homesmartify/core/error/internal_exception.dart';
 import 'package:homesmartify/core/error/no_data_failure.dart';
 import 'package:homesmartify/data/models/devices/smart_air_conditioner_model.dart';
-import 'package:homesmartify/domain/entities/enums/smart_device_types.dart';
+import 'package:homesmartify/data/serializers/smart_device_serializer.dart';
+import 'package:homesmartify/domain/entities/enums/smart_device_type.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
 
 import '../../core/error/failure.dart';
 import '../../domain/entities/smart_device.dart';
 import '../models/devices/smart_bulb_model.dart';
-import '../models/devices/smart_tv.dart';
+import '../models/devices/smart_tv_model.dart';
 
-class LocalDataSource {
+class SmartDeviceLocalDataSource {
   static const String smartDevicesKey = "smart_devices";
 
   final SecureSharedPref secureSharedPref;
 
-  LocalDataSource(this.secureSharedPref);
-
-  /// Deserializes the raw smart device data to a smart device object
-  SmartDevice _deserializeSmartDevice(Map<String, dynamic> rawSmartDevice) {
-    SmartDeviceType? type = SmartDeviceType.values.asNameMap()[rawSmartDevice["type"]];
-    switch (type) {
-      case SmartDeviceType.smartBulb:
-        return SmartBulbModel.fromJson(rawSmartDevice);
-      case SmartDeviceType.smartAirConditioner:
-        return SmartAirConditionerModel.fromJson(rawSmartDevice);
-      case SmartDeviceType.smartTv:
-        return SmartTvModel.fromJson(rawSmartDevice);
-      default:
-        throw Exception("Unknown smart device type");
-    }
-  }
-
-  /// Serializes the smart device object to a map
-  Map<String, dynamic> _serializeSmartDevice(SmartDevice smartDevice) {
-    if(smartDevice is SmartBulbModel){
-      return smartDevice.toJson();
-    }
-    else if(smartDevice is SmartAirConditionerModel){
-      return smartDevice.toJson();
-    }
-    else if(smartDevice is SmartTvModel){
-      return smartDevice.toJson();
-    }
-
-    return {
-
-    };
-  }
+  SmartDeviceLocalDataSource(this.secureSharedPref);
 
   Future<Either<Failure, List<SmartDevice>>> getSmartDevices() async {
     try {
@@ -67,7 +36,7 @@ class LocalDataSource {
       return Future.value(
         Right(
           rawDemoDevices.map((value) {
-            return _deserializeSmartDevice(value);
+            return SmartDeviceSerializer.fromJson(value);
           }).toList(),
         ),
       );
@@ -87,7 +56,7 @@ class LocalDataSource {
         List<SmartDevice> smartDevices = (result as Right).value..add(smartDevice);
 
         // Encode the list of devices to JSON
-        String data = jsonEncode(smartDevices.map((device) => _serializeSmartDevice(device)).toList());
+        String data = jsonEncode(smartDevices.map((device) => SmartDeviceSerializer.toJson(device)).toList());
 
         // Save the list of devices to the secure shared preferences
         await secureSharedPref.putString(smartDevicesKey, data);
@@ -114,7 +83,7 @@ class LocalDataSource {
         List<SmartDevice> smartDevices = (result as Right).value..remove(smartDevice);
 
         // Encode the list of devices to JSON
-        String data = jsonEncode(smartDevices.map((device) => _serializeSmartDevice(device)).toList());
+        String data = jsonEncode(smartDevices.map((device) => SmartDeviceSerializer.toJson(device)).toList());
 
         // Save the list of devices to the secure shared preferences
         await secureSharedPref.putString(smartDevicesKey, data);
@@ -162,7 +131,7 @@ class LocalDataSource {
         List<SmartDevice> smartDevices = (result as Right).value..removeWhere((element) => element.id == smartDevice.id)..add(smartDevice);
 
         // Encode the list of devices to JSON
-        String data = jsonEncode(smartDevices.map((device) => _serializeSmartDevice(device)).toList());
+        String data = jsonEncode(smartDevices.map((device) => SmartDeviceSerializer.toJson(device)).toList());
 
         // Save the list of devices to the secure shared preferences
         await secureSharedPref.putString(smartDevicesKey, data);

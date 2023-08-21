@@ -1,9 +1,10 @@
 import 'package:homesmartify/data/models/devices/smart_air_conditioner_model.dart';
-import 'package:homesmartify/data/models/devices/smart_tv.dart';
+import 'package:homesmartify/data/models/devices/smart_tv_model.dart';
 
 import '../data/models/devices/smart_bulb_model.dart';
 import '../domain/entities/devices/smart_air_conditioner.dart';
 import '../domain/entities/devices/smart_tv.dart';
+import '../domain/entities/routine.dart';
 import '../domain/entities/smart_device.dart';
 
 List<SmartDevice> demoDevices = [
@@ -43,3 +44,5 @@ List<SmartDevice> demoDevices = [
     ),
   )
 ];
+
+List<Routine> demoRoutines = [];

@@ -4,7 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:homesmartify/core/error/failure.dart';
 import 'package:homesmartify/core/error/internal_exception.dart';
 import 'package:homesmartify/core/error/no_data_failure.dart';
-import 'package:homesmartify/data/data_sources/local_data_source.dart';
+import 'package:homesmartify/data/data_sources/smart_device_local_data_source.dart';
 import 'package:homesmartify/data/models/devices/smart_air_conditioner_model.dart';
 import 'package:homesmartify/data/models/devices/smart_bulb_model.dart';
 import 'package:homesmartify/domain/entities/smart_device.dart';
@@ -20,7 +20,7 @@ import 'local_data_source_test.mocks.dart';
 @GenerateMocks([SecureSharedPref])
 void main() {
   // Create an instance of LocalDataSource with mocked dependencies
-  late LocalDataSource localDataSource;
+  late SmartDeviceLocalDataSource localDataSource;
   late MockSecureSharedPref mockSecureSharedPref;
 
   // Define some test data and variables
@@ -32,7 +32,7 @@ void main() {
   // Set up the test before each test case
   setUp(() {
     mockSecureSharedPref = MockSecureSharedPref();
-    localDataSource = LocalDataSource(mockSecureSharedPref);
+    localDataSource = SmartDeviceLocalDataSource(mockSecureSharedPref);
 
     // Define some test data and variables
     tData = '''
@@ -129,7 +129,7 @@ void main() {
 
         // Assert
         // Verify that the getString() method was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Expect that the result is a Right containing the list of smart devices
         bool isListEqual = const ListEquality().equals(result.getOrElse((l) => []), tSmartDevices);
@@ -151,7 +151,7 @@ void main() {
 
         // Assert
         // Verify that the getString() method was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Expect that the result is a Left containing a NoDataFailure
         expect(result, equals(const Left(NoDataFailure())));
@@ -172,7 +172,7 @@ void main() {
 
         // Assert
         // Verify that the getString() method was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Expect that the result is a Left containing an InternalException with the error message
         expect(result, equals(Left(InternalException(Exception("Some error")))));
@@ -293,7 +293,7 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Expect that the result is a right value containing the smart bulb
         expect(result, Right(tSmartDevice));
@@ -320,7 +320,7 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -348,8 +348,8 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key twice (once for getting and once for putting)
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
-        verify(mockSecureSharedPref.putString(LocalDataSource.smartDevicesKey, any));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.putString(SmartDeviceLocalDataSource.smartDevicesKey, any));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -375,7 +375,7 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -399,7 +399,7 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -422,7 +422,7 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -448,8 +448,8 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key twice (once for getting and once for putting)
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
-        verify(mockSecureSharedPref.putString(LocalDataSource.smartDevicesKey, any));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.putString(SmartDeviceLocalDataSource.smartDevicesKey, any));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -473,7 +473,7 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);
@@ -499,8 +499,8 @@ void main() {
 
         // Assert
         // Verify that the secure shared preference was called with the correct key twice (once for getting and once for putting)
-        verify(mockSecureSharedPref.getString(LocalDataSource.smartDevicesKey));
-        verify(mockSecureSharedPref.putString(LocalDataSource.smartDevicesKey, any));
+        verify(mockSecureSharedPref.getString(SmartDeviceLocalDataSource.smartDevicesKey));
+        verify(mockSecureSharedPref.putString(SmartDeviceLocalDataSource.smartDevicesKey, any));
 
         // Verify that no more interactions happened with the secure shared preference
         verifyNoMoreInteractions(mockSecureSharedPref);

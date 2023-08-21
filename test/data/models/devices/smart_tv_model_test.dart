@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:homesmartify/data/models/devices/smart_tv.dart';
+import 'package:homesmartify/data/models/devices/smart_tv_model.dart';
 import 'package:homesmartify/domain/entities/devices/smart_tv.dart';
 
 void main() {

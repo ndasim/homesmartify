@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:homesmartify/domain/entities/enums/routine_frequency_types.dart';
+import 'package:homesmartify/domain/entities/enums/routine_frequency_type.dart';
 import 'package:homesmartify/domain/entities/routine_action.dart';
 import 'smart_device.dart';
 
-class Routine extends Equatable{
+abstract class Routine extends Equatable{
   final String name; // name of the routine
   final SmartDevice device; // device to be controlled by the routine
   final int startTimeInMinutes; // 0 - 1440 (24 hours) defines the start time of the routine in day

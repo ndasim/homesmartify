@@ -1,12 +1,12 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:homesmartify/core/consts.dart';
 import 'package:homesmartify/core/error/failure.dart';
-import 'package:homesmartify/data/data_sources/local_data_source.dart';
+import 'package:homesmartify/data/data_sources/smart_device_local_data_source.dart';
 import 'package:homesmartify/domain/entities/smart_device.dart';
 import 'package:homesmartify/domain/repositories/smart_device_repository.dart';
 
 class SmartDeviceDemoRepository extends SmartDeviceRepository{
-  final LocalDataSource localDataSource;
+  final SmartDeviceLocalDataSource localDataSource;
 
   SmartDeviceDemoRepository(this.localDataSource);
 

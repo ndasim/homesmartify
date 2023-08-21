@@ -1,9 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homesmartify/data/models/devices/smart_air_conditioner_model.dart';
-import 'package:mockito/annotations.dart';
+
 import 'package:homesmartify/domain/entities/devices/smart_air_conditioner.dart';
 
-@GenerateMocks([SmartAirConditionerValues])
 void main() {
   group('SmartAirConditionerModel', () {
     test('fromJson creates a valid SmartAirConditionerModel object', () async {

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:homesmartify/domain/entities/enums/smart_device_types.dart';
+import 'package:homesmartify/domain/entities/enums/smart_device_type.dart';
 import 'package:homesmartify/domain/entities/smart_device.dart';
 
 class SmartBulbValues extends Equatable{

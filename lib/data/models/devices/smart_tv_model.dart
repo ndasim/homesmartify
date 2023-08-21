@@ -6,12 +6,23 @@ class SmartTvValuesModel extends SmartTvValues{
     required int volume,
   }) : super(channel: channel, volume: volume);
 
+  SmartTvValuesModel copyWith({
+    int? channel,
+    int? volume,
+  }) {
+    return SmartTvValuesModel(
+      channel: channel ?? this.channel,
+      volume: volume ?? this.volume,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'channel': channel,
       'volume': volume,
     };
   }
+
   factory SmartTvValuesModel.fromJson(Map<String, dynamic> json) {
     return SmartTvValuesModel(
       channel: json['channel'],
@@ -28,10 +39,25 @@ class SmartTvModel extends SmartTv{
     required SmartTvValues values,
   }) : super(id: id, name: name, status: status, values: values);
 
+  SmartTvModel copyWith({
+    String? id,
+    String? name,
+    bool? status,
+    SmartTvValues? values,
+  }) {
+    return SmartTvModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      status: status ?? this.status,
+      values: values ?? this.values,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
+      'type': type,
       'status': status,
       'values': (values as SmartTvValuesModel).toJson(),
     };
