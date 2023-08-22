@@ -5,7 +5,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.2 <3.0.0"
 
 dependencies:
   # Service locator
@@ -24,7 +24,9 @@ dependencies:
   # Fonts
   google_fonts: 5.1.0
   # Design
-  flutter_screenutil: 5.8.4
+  json_theme: ^4.0.0
+  flutter_screenutil: ^5.9.0
+  curved_labeled_navigation_bar: 2.0.2
 
   flutter:
     sdk: flutter
@@ -43,6 +45,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+     - assets/
+     - assets/theme/
+
+  fonts:
+    - family: Acme
+      fonts:
+        - asset: assets/fonts/Acme-Regular.ttf
