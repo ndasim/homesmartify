@@ -6,7 +6,7 @@ void main() {
   group('SmartBulbValuesModel', () {
     test('should be a subclass of SmartBulbValues entity', () async {
       // Arrange
-      const SmartBulbValuesModel tSmartBulbValuesModel = SmartBulbValuesModel(color: 0, hue: 0);
+      const SmartBulbValuesModel tSmartBulbValuesModel = SmartBulbValuesModel(color: 0, brightness: 0);
 
       // act
 
@@ -32,7 +32,7 @@ void main() {
   group('SmartBulbModel', () {
     test('should be a subclass of SmartBulb entity', () async {
       // arrange
-      const SmartBulbValuesModel tSmartBulbValuesModel = SmartBulbValuesModel(color: 0, hue: 0);
+      const SmartBulbValuesModel tSmartBulbValuesModel = SmartBulbValuesModel(color: 0, brightness: 0);
       const SmartBulbModel tSmartBulbModel = SmartBulbModel(
         id: '1',
         name: 'Test',

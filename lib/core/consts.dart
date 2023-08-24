@@ -13,7 +13,7 @@ List<SmartDevice> demoDevices = [
     name: 'Smart Bulb 1',
     status: true,
     values: SmartBulbValuesModel(
-      color: 0xffffff, hue: 100,
+      color: 0xffffff, brightness: 100,
     ),
   ),
   const SmartBulbModel(
@@ -21,7 +21,7 @@ List<SmartDevice> demoDevices = [
     name: 'Smart Bulb 2',
     status: true,
     values: SmartBulbValuesModel(
-      color: 0xf5f5f5, hue: 100,
+      color: 0xf5f5f5, brightness: 100,
     ),
   ),
   const SmartAirConditionerModel(

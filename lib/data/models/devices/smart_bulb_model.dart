@@ -3,30 +3,30 @@ import 'package:homesmartify/domain/entities/devices/smart_bulb.dart';
 class SmartBulbValuesModel extends SmartBulbValues{
   const SmartBulbValuesModel({
     required int color,
-    required int hue,
-  }) : super(color: color, hue: hue);
+    required int brightness,
+  }) : super(color: color, brightness: brightness);
 
   SmartBulbValuesModel copyWith({
     int? color,
-    int? hue,
+    int? brightness,
   }) {
     return SmartBulbValuesModel(
       color: color ?? this.color,
-      hue: hue ?? this.hue,
+      brightness: brightness ?? this.brightness,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'color': color,
-      'hue': hue,
+      'brightness': brightness,
     };
   }
 
   factory SmartBulbValuesModel.fromJson(Map<String, dynamic> json) {
     return SmartBulbValuesModel(
       color: json['color'],
-      hue: json['hue'],
+      brightness: json['brightness'],
     );
   }
 }

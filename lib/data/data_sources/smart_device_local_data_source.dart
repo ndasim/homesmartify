@@ -26,11 +26,8 @@ class SmartDeviceLocalDataSource {
       // Get the list of devices from the secure shared preferences
       String? data = await secureSharedPref.getString(smartDevicesKey);
 
-      // If there is no data, return a NoDataFailure
-      if (data == null) return Future.value(const Left(NoDataFailure()));
-
       // Decode the list of devices from JSON
-      List<Map<String, dynamic>> rawDemoDevices = (jsonDecode(data) as List).cast<Map<String, dynamic>>();
+      List<Map<String, dynamic>> rawDemoDevices = (jsonDecode(data ?? "[]") as List).cast<Map<String, dynamic>>();
 
       // Return the list of devices
       return Future.value(
@@ -63,8 +60,7 @@ class SmartDeviceLocalDataSource {
 
         // Return the new device
         return Right(smartDevice);
-      }
-      else{ // If there are failures, return the failure
+      } else{ // If there are failures, return the failure
         return Left((result as Left).value);
       }
     } catch(e, s){

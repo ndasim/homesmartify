@@ -4,15 +4,15 @@ import 'package:homesmartify/domain/entities/smart_device.dart';
 
 class SmartBulbValues extends Equatable{
   final int color;
-  final int hue;
+  final int brightness;
   
   const SmartBulbValues({
     required this.color,
-    required this.hue,
+    required this.brightness,
   });
   
   @override
-  List<Object?> get props => [color, hue];
+  List<Object?> get props => [color, brightness];
 }
 
 class SmartBulb extends SmartDevice<SmartBulbValues> {

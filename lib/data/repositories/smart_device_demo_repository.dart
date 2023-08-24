@@ -30,9 +30,9 @@ class SmartDeviceDemoRepository extends SmartDeviceRepository{
   Future<Either<Failure, List<SmartDevice>>> getSmartDevices() async{
     Either<Failure, List<SmartDevice>> devices = await localDataSource.getSmartDevices();
 
-    if(devices.isLeft()){
-      for (SmartDevice device in demoDevices){
-        localDataSource.addSmartDevice(device);
+    if(devices.toNullable()?.isEmpty ?? true){ // If there are no devices, add the demo devices
+      for (SmartDevice<dynamic> device in demoDevices){
+        await localDataSource.addSmartDevice(device);
       }
     }
 

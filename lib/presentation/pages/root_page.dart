@@ -13,8 +13,8 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  PageController pageController = PageController(initialPage: 1);
-  int currentPage = 1;
+  int currentPage = 0;
+  PageController pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {

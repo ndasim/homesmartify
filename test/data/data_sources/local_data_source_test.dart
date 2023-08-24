@@ -86,7 +86,7 @@ void main() {
       status: true,
       values: SmartBulbValuesModel(
         color: 50,
-        hue: 100,
+        brightness: 100,
       ),
     );
 
@@ -97,7 +97,7 @@ void main() {
         status: true,
         values: SmartBulbValuesModel(
           color: 50,
-          hue: 100,
+          brightness: 100,
         ),
       ),
       const SmartAirConditionerModel(
