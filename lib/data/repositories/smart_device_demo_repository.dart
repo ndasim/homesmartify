@@ -16,7 +16,7 @@ class SmartDeviceDemoRepository extends SmartDeviceRepository{
   }
 
   @override
-  Future<Either<Failure, SmartDevice>> deleteSmartDevice(SmartDevice<dynamic> smartDevice) {
+  Future<Either<Failure, List<SmartDevice>>> deleteSmartDevice(SmartDevice<dynamic> smartDevice) {
     return localDataSource.deleteSmartDevice(smartDevice);
   }
 

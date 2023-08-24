@@ -7,5 +7,5 @@ abstract class SmartDeviceRepository {
   Future<Either<Failure, SmartDevice>> getSmartDevice(String id);
   Future<Either<Failure, SmartDevice>> addSmartDevice(SmartDevice smartDevice);
   Future<Either<Failure, SmartDevice>> updateSmartDevice(SmartDevice smartDevice);
-  Future<Either<Failure, SmartDevice>> deleteSmartDevice(SmartDevice smartDevice);
+  Future<Either<Failure, List<SmartDevice>>> deleteSmartDevice(SmartDevice smartDevice);
 }

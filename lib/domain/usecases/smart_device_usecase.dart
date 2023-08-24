@@ -24,7 +24,7 @@ class SmartDeviceUseCase {
     return await _smartDeviceRepository.updateSmartDevice(smartDevice);
   }
 
-  Future<Either<Failure, SmartDevice>> deleteSmartDevice(SmartDevice smartDevice) async {
+  Future<Either<Failure, List<SmartDevice>>> deleteSmartDevice(SmartDevice smartDevice) async {
     return await _smartDeviceRepository.deleteSmartDevice(smartDevice);
   }
 }

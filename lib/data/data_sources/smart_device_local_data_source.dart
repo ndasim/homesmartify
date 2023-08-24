@@ -72,7 +72,7 @@ class SmartDeviceLocalDataSource {
     }
   }
 
-  Future<Either<Failure, SmartDevice>> deleteSmartDevice(SmartDevice<dynamic> smartDevice) async {
+  Future<Either<Failure, List<SmartDevice>>> deleteSmartDevice(SmartDevice<dynamic> smartDevice) async {
     try{
       // Get device list
       Either<Failure, List<SmartDevice>> result = await getSmartDevices();
@@ -89,7 +89,7 @@ class SmartDeviceLocalDataSource {
         await secureSharedPref.putString(smartDevicesKey, data);
 
         // Return the new device
-        return Right(smartDevice);
+        return Right(smartDevices);
       }
       else{ // If there are failures, return the failure
         return Left((result as Left).value);
