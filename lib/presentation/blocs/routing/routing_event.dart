@@ -13,8 +13,9 @@ class NavigateToSmartDeviceListEvent extends RoutingEvent {
 
 class NavigateToSmartDeviceDetailEvent extends RoutingEvent {
   final SmartDevice smartDevice;
+  final BuildContext context;
 
-  const NavigateToSmartDeviceDetailEvent(this.smartDevice);
+  const NavigateToSmartDeviceDetailEvent({required this.context, required this.smartDevice});
 
   @override
   List<Object> get props => [smartDevice];

@@ -27,6 +27,7 @@ dependencies:
   json_theme: ^4.0.0
   flutter_screenutil: ^5.9.0
   curved_labeled_navigation_bar: 2.0.2
+  wolt_modal_sheet: 0.0.4
 
   flutter:
     sdk: flutter

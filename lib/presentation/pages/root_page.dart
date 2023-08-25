@@ -1,7 +1,10 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homesmartify/core/core.dart';
 import 'package:homesmartify/domain/entities/routine.dart';
+import 'package:homesmartify/presentation/blocs/routing/routing_bloc.dart';
 import 'package:homesmartify/presentation/pages/devices_page.dart';
 import 'package:homesmartify/presentation/pages/routines_page.dart';
 
@@ -24,17 +27,20 @@ class _RootPageState extends State<RootPage> {
     double iconSize = themeData.iconTheme.size ?? 24.0;
 
     return Scaffold(
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (index) {
-          setState(() {
-            currentPage = index;
-          });
-        },
-        children: const [
-          DevicesPage(),
-          RoutinesPage()
-        ],
+      body: BlocProvider<RoutingBloc>(
+        create: (context) => getIt(),
+        child: PageView(
+          controller: pageController,
+          onPageChanged: (index) {
+            setState(() {
+              currentPage = index;
+            });
+          },
+          children: const [
+            DevicesPage(),
+            RoutinesPage()
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
